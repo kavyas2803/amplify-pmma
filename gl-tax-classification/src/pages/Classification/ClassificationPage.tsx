@@ -27,7 +27,7 @@ export function ClassificationPage() {
   });
 
   const hasProcessingRun = runs.some((r) => r.status === 'PROCESSING');
-  useRunPolling(hasProcessingRun, refetch);
+  useRunPolling(hasProcessingRun, () => refetch({ silent: true }));
 
   const handlePageChange = (nextPage: number, nextPageSize: number) => {
     setPage(nextPage);

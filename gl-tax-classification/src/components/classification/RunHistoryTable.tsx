@@ -168,7 +168,7 @@ export function RunHistoryTable({ runs, total, loading, page, pageSize, onPageCh
       columns={columns}
       data={runs}
       rowKey="id"
-      loading={loading}
+      loading={loading && runs.length === 0}
       total={total}
       page={page}
       pageSize={pageSize}
