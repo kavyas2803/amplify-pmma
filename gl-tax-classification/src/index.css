@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+/*
+  Centralized design tokens for the GL Tax Classification Portal.
+  Derived from the approved Panasonic reference screenshots.
+  Do not hardcode these values inside components — reference the
+  Tailwind theme tokens (bg-primary, text-textMuted, etc.) instead.
+*/
+@theme {
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --color-primary-active: #3730a3;
+
+  --color-sidebar: #000000;
+  --color-sidebar-hover: #18181b;
+  --color-sidebar-text: #e4e4e7;
+  --color-sidebar-text-muted: #9ca3af;
+
+  --color-page-background: #f4f4f6;
+  --color-surface: #ffffff;
+  --color-surface-muted: #fafafa;
+
+  --color-border: #e2e2e5;
+  --color-border-strong: #d4d4d8;
+
+  --color-text: #1a1a1a;
+  --color-text-muted: #6b7280;
+  --color-text-subtle: #9ca3af;
+
+  --color-success-bg: #eaf7ee;
+  --color-success-text: #16833b;
+  --color-warning-bg: #fff7e6;
+  --color-warning-text: #ad6800;
+  --color-error-bg: #fff1f0;
+  --color-error-text: #cf1322;
+  --color-info-bg: #e6f0ff;
+  --color-info-text: #1d4ed8;
+  --color-neutral-bg: #f0f0f2;
+  --color-neutral-text: #52525b;
+
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-page-background);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* AntD table / component overrides that must stay centralized rather than per-component */
+.gltc-scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.gltc-scroll-thin::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 8px;
+}
+.gltc-scroll-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
