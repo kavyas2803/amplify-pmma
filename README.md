@@ -135,7 +135,7 @@ Routes under `/dashboard`, `/classification` are gated by `ProtectedRoute`.
 
 ### Centralized theme
 
-Colors are defined once in `src/index.css` (`@theme` block, Tailwind v4) and
+Colors are defined one in `src/index.css` (`@theme` block, Tailwind v4) and
 mirrored in `src/app/providers/antdTheme.ts` for Ant Design's `ConfigProvider`.
 Update both together when the palette changes — no component should hardcode
 a hex value.
