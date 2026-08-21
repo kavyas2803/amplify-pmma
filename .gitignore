@@ -28,3 +28,5 @@ dist-ssr
 node_modules
 .amplify
 amplifyconfiguration*
+dist-deploy.zip
+*.zip
