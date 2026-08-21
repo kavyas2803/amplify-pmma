@@ -4,19 +4,17 @@ frontend:
   phases:
     preBuild:
       commands:
-        - cd gl-tax-classification
-        - npm ci
+        - npm install
 
     build:
       commands:
-        - cd gl-tax-classification
         - npm run build
 
   artifacts:
-    baseDirectory: gl-tax-classification/dist
+    baseDirectory: dist
     files:
       - '**/*'
 
   cache:
     paths:
-      - gl-tax-classification/node_modules/**/*
+      - node_modules/**/*
