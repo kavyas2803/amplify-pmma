@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Alert, Button, Form, Input } from 'antd';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/app/providers/AuthProvider';
 import { assets } from '@/config/assets';
 import { labels } from '@/constants/labels';
@@ -11,11 +11,21 @@ interface LocationState {
 }
 
 export function LoginPage() {
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Cognito already restored a signed-in session (e.g. user navigated to
+  // /login directly, or landed here from a stale link). Calling signIn()
+  // again in that state throws "There is already a signed in user" — so
+  // bounce straight to the app instead of showing the form.
+  if (isAuthenticated) {
+    const state = location.state as LocationState | null;
+    const destination = state?.from?.pathname ?? '/dashboard';
+    return <Navigate to={destination} replace />;
+  }
 
   const handleFinish = async (values: LoginPayload) => {
     setSubmitting(true);

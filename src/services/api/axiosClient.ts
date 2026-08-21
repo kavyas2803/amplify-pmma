@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
+import { fetchAuthSession } from 'aws-amplify/auth';
 import { env } from '@/config/environment';
-import { getAuthToken } from '@/services/api/tokenStore';
 import type { ApiError } from '@/types/api';
 
 export const axiosClient = axios.create({
@@ -11,10 +11,15 @@ export const axiosClient = axios.create({
   },
 });
 
-axiosClient.interceptors.request.use((config) => {
-  const token = getAuthToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+axiosClient.interceptors.request.use(async (config) => {
+  try {
+    const session = await fetchAuthSession();
+    const token = session.tokens?.idToken?.toString();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  } catch {
+    // No authenticated session; request proceeds without an Authorization header.
   }
   return config;
 });
