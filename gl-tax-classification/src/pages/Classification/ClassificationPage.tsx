@@ -38,20 +38,25 @@ export function ClassificationPage() {
     <div>
       <PageHeader
         title="Classification"
-        actions={
-          <Button type="primary" icon={<Plus size={16} />} onClick={() => setUploadModalOpen(true)}>
-            {labels.actions.newUpload}
-          </Button>
-        }
       />
 
-      <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
-        <SearchBar placeholder="Search runs..." value={search} onChange={(v) => { setSearch(v); setPage(1); }} />
-        <RunHistoryFilters
-          status={status}
-          onChange={(_key, value) => { setStatus(value); setPage(1); }}
-          onClear={() => { setStatus('ALL'); setPage(1); }}
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <SearchBar
+          placeholder="Search runs..."
+          value={search}
+          onChange={(v) => { setSearch(v); setPage(1); }}
+          className="w-[320px] h-10"
         />
+        <div className="flex items-center gap-2 shrink-0">
+          <RunHistoryFilters
+            status={status}
+            onChange={(_key, value) => { setStatus(value); setPage(1); }}
+            onClear={() => { setStatus('ALL'); setPage(1); }}
+          />
+          <Button type="primary" size="large" icon={<Plus size={16} />} onClick={() => setUploadModalOpen(true)}>
+            {labels.actions.newUpload}
+          </Button>
+        </div>
       </div>
 
       <h2 className="text-sm font-semibold text-text mb-3">Recent Runs</h2>

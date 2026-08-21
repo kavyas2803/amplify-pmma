@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, Button, Form, Input, Tooltip } from 'antd';
+import { Alert, Button, Form, Input } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/app/providers/AuthProvider';
 import { assets } from '@/config/assets';
@@ -34,8 +34,8 @@ export function LoginPage() {
 
   return (
     <div className="h-screen w-screen flex flex-col md:flex-row overflow-hidden">
-      <div className="h-40 md:h-auto md:w-1/2 bg-sidebar flex items-center justify-center shrink-0 px-6">
-        <img src={assets.panasonicWordmark} alt="Panasonic" className="h-8 md:h-14 w-auto max-w-full" />
+      <div className="h-40 md:h-auto md:w-1/2 bg-sidebar flex items-center justify-center shrink-0 overflow-hidden">
+        <img src={assets.panasonicWordmark} alt="Panasonic" className="w-[75%] max-w-[700px] h-auto object-contain" />
       </div>
 
       <div className="flex-1 flex items-start md:items-center justify-center bg-page-background px-6 overflow-y-auto">
@@ -68,14 +68,6 @@ export function LoginPage() {
               />
             </Form.Item>
 
-            <div className="flex justify-end -mt-2 mb-4">
-              <Tooltip title="Not available in this POC">
-                <span className="text-sm text-primary cursor-not-allowed opacity-70">
-                  Forgot password?
-                </span>
-              </Tooltip>
-            </div>
-
             <Form.Item className="mb-3">
               <Button
                 type="primary"
@@ -88,11 +80,6 @@ export function LoginPage() {
               </Button>
             </Form.Item>
 
-            <Tooltip title="Not available in this POC">
-              <Button block size="large" disabled>
-                Sign in with SSO
-              </Button>
-            </Tooltip>
           </Form>
         </div>
       </div>

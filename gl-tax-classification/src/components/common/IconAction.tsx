@@ -22,7 +22,7 @@ export function IconAction({ icon: Icon, tooltip, onClick, danger, disabled }: I
           ${danger ? 'text-error-text' : 'text-text-muted'}
         `}
       >
-        <Icon size={16} />
+        <Icon size={18} />
       </button>
     </Tooltip>
   );

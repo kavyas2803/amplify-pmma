@@ -1,4 +1,4 @@
-import panasonicWordmark from '@/assets/brand/panasonic-wordmark.png';
+import panasonicWordmark from '@/assets/brand/logo---dark.png';
 
 export const assets = {
   panasonicWordmark,

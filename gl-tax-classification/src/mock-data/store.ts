@@ -310,8 +310,12 @@ export function addHistoryEvent(lineItemId: string, event: Omit<HistoryEvent, 'i
   return newEvent;
 }
 
-export function createNewRun(glFileName: string, provisionFileName: string, createdBy: string): ClassificationRun {
-  const runId = nextRunId();
+export function createNewRun(
+  runId: string,
+  glFileName: string,
+  provisionFileName: string,
+  createdBy: string,
+): ClassificationRun {
   const createdAt = new Date().toISOString();
   const run: ClassificationRun = {
     id: runId,

@@ -20,6 +20,7 @@ export interface ClassificationRun {
 }
 
 export interface CreateRunPayload {
+  runId: string;
   glFile: File;
   provisionFile: File;
 }
@@ -27,6 +28,8 @@ export interface CreateRunPayload {
 export interface RunListParams {
   search?: string;
   status?: RunStatus | 'ALL';
+  startDate?: string;
+  endDate?: string;
   page?: number;
   pageSize?: number;
 }

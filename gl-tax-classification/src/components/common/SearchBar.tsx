@@ -14,7 +14,7 @@ export function SearchBar({ placeholder, value, onChange, className }: SearchBar
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      prefix={<Search size={16} className="text-text-subtle" />}
+      prefix={<Search size={15} className="text-text-subtle" />}
       allowClear
       className={className}
       style={{ maxWidth: 320 }}

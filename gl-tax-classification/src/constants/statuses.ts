@@ -28,6 +28,16 @@ export const RUN_STATUS_TONE: Record<RunStatus, BadgeTone> = {
   FAILED: 'error',
 };
 
+// Chart colors used by the dashboard's Run Status Breakdown donut. Kept in sync
+// with the hues used for RUN_STATUS_TONE's badge backgrounds above.
+export const RUN_STATUS_CHART_COLOR: Record<RunStatus, string> = {
+  PROCESSING: '#71717A',
+  READY_FOR_REVIEW: '#2563EB',
+  IN_REVIEW: '#F59E0B',
+  FINALIZED: '#10B981',
+  FAILED: '#EF4444',
+};
+
 export const LINE_ITEM_STATUS: Record<LineItemStatus, LineItemStatus> = {
   IN_REVIEW: 'IN_REVIEW',
   REVIEWED: 'REVIEWED',
@@ -41,6 +51,12 @@ export const LINE_ITEM_STATUS_LABEL: Record<LineItemStatus, string> = {
 export const LINE_ITEM_STATUS_TONE: Record<LineItemStatus, BadgeTone> = {
   IN_REVIEW: 'warning',
   REVIEWED: 'success',
+};
+
+// Chart colors used by the dashboard's Line Items by Outcome donut.
+export const LINE_ITEM_STATUS_CHART_COLOR: Record<LineItemStatus, string> = {
+  IN_REVIEW: '#F59E0B',
+  REVIEWED: '#10B981',
 };
 
 export const LINE_ITEM_STATUS_OPTIONS = [

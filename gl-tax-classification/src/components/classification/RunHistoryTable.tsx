@@ -86,6 +86,13 @@ export function RunHistoryTable({ runs, total, loading, page, pageSize, onPageCh
       render: (value: string) => <span className="text-sm text-text whitespace-nowrap">{formatDateTime(value)}</span>,
     },
     {
+      title: 'Run ID',
+      dataIndex: 'id',
+      key: 'id',
+      width: 140,
+      render: (value: string) => <TruncatedText value={value} maxLength={18} className="text-sm text-text font-medium" />,
+    },
+    {
       title: 'Source Files',
       key: 'sourceFiles',
       width: 240,
@@ -144,7 +151,7 @@ export function RunHistoryTable({ runs, total, loading, page, pageSize, onPageCh
       width: 130,
       fixed: 'right',
       render: (_, run) => (
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           <IconAction
             icon={Eye}
             tooltip="View"
@@ -174,7 +181,7 @@ export function RunHistoryTable({ runs, total, loading, page, pageSize, onPageCh
       pageSize={pageSize}
       onPageChange={onPageChange}
       emptyMessage={messages.empty.noRuns}
-      scrollX={1350}
+      scrollX={1490}
     />
   );
 }

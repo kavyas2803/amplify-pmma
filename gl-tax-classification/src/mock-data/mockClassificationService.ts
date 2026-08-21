@@ -32,7 +32,7 @@ function delay<T>(value: T, ms = 500): Promise<T> {
 
 export async function createClassificationRun(payload: CreateRunPayload): Promise<ClassificationRun> {
   await delay(null, 900);
-  const run = createNewRun(payload.glFile.name, payload.provisionFile.name, MOCK_USER.displayName);
+  const run = createNewRun(payload.runId, payload.glFile.name, payload.provisionFile.name, MOCK_USER.displayName);
 
   // Simulate async backend processing completing a little later.
   setTimeout(() => {
@@ -50,10 +50,21 @@ export async function getRuns(params: RunListParams): Promise<RunListResult> {
     const q = params.search.toLowerCase();
     runs = runs.filter(
       (r) =>
+        r.id.toLowerCase().includes(q) ||
         r.glFileName.toLowerCase().includes(q) ||
         r.provisionFileName.toLowerCase().includes(q) ||
         r.createdBy.toLowerCase().includes(q),
     );
+  }
+
+  if (params.startDate) {
+    const start = new Date(`${params.startDate}T00:00:00.000Z`).getTime();
+    runs = runs.filter((r) => new Date(r.createdAt).getTime() >= start);
+  }
+
+  if (params.endDate) {
+    const end = new Date(`${params.endDate}T23:59:59.999Z`).getTime();
+    runs = runs.filter((r) => new Date(r.createdAt).getTime() <= end);
   }
 
   if (params.status && params.status !== 'ALL') {

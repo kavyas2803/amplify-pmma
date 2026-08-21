@@ -11,6 +11,7 @@ import type { HistoryEvent } from '@/types/history';
 
 export async function createClassificationRun(payload: CreateRunPayload): Promise<ClassificationRun> {
   const form = new FormData();
+  form.append('runId', payload.runId);
   form.append('glFile', payload.glFile);
   form.append('provisionFile', payload.provisionFile);
   const response = await axiosClient.post<ClassificationRun>('/runs', form, {

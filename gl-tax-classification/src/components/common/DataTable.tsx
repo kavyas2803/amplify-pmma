@@ -14,6 +14,7 @@ interface DataTableProps<T> {
   emptyMessage: string;
   scrollY?: number | string;
   scrollX?: number | string;
+  className?: string;
 }
 
 const PAGE_SIZE_OPTIONS = ['10', '25', '50', '100'];
@@ -30,15 +31,16 @@ export function DataTable<T extends object>({
   emptyMessage,
   scrollY = 520,
   scrollX = 1200,
+  className,
 }: DataTableProps<T>) {
   return (
     <div className="gltc-scroll-thin">
       <Table<T>
+        className={className}
         columns={columns}
         dataSource={data}
         rowKey={rowKey}
         loading={loading}
-        sticky
         scroll={{ y: scrollY, x: scrollX }}
         locale={{
           emptyText: <EmptyState message={emptyMessage} />,

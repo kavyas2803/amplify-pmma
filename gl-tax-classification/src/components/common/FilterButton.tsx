@@ -26,7 +26,7 @@ export function FilterButton({ fields, values, onChange, onClear }: FilterButton
   const activeCount = fields.filter((f) => values[f.key] && values[f.key] !== 'ALL').length;
 
   const content = (
-    <div className="w-64">
+    <div className="w-72 p-1">
       <Space direction="vertical" size="middle" className="w-full">
         {fields.map((field) => (
           <div key={field.key}>

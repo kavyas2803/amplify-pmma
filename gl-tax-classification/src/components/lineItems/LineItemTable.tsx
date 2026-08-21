@@ -42,19 +42,18 @@ export function LineItemTable({
       dataIndex: 'deliveryNumber',
       key: 'deliveryNumber',
       width: 130,
-      fixed: 'left',
     },
     {
       title: 'Profit Center',
       dataIndex: 'profitCenter',
       key: 'profitCenter',
-      width: 110,
+      width: 130,
     },
     {
       title: 'Text',
       dataIndex: 'text',
       key: 'text',
-      width: 220,
+      width: 240,
       render: (value: string) => <TruncatedText value={value} />,
     },
     {
@@ -78,7 +77,7 @@ export function LineItemTable({
       title: 'AI Suggested Classification',
       dataIndex: 'aiSuggestedClassification',
       key: 'aiSuggestedClassification',
-      width: 190,
+      width: 200,
       render: (value: LineItem['aiSuggestedClassification']) => (
         <span className="text-text-muted">{TAX_CLASSIFICATION_SHORT_LABEL[value]}</span>
       ),
@@ -99,14 +98,14 @@ export function LineItemTable({
       title: 'LLM Reasoning / Output',
       dataIndex: 'llmReasoning',
       key: 'llmReasoning',
-      width: 240,
+      width: 220,
       render: (value: string) => <TruncatedText value={value} className="text-text-muted" />,
     },
     {
       title: 'Tax Classification',
       dataIndex: 'taxClassification',
       key: 'taxClassification',
-      width: 190,
+      width: 180,
       render: (value: LineItem['taxClassification']) => (
         <span className="font-medium">{TAX_CLASSIFICATION_SHORT_LABEL[value]}</span>
       ),
@@ -115,7 +114,7 @@ export function LineItemTable({
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      width: 130,
+      width: 150,
       render: (value: LineItem['status']) => (
         <StatusBadge label={LINE_ITEM_STATUS_LABEL[value]} tone={LINE_ITEM_STATUS_TONE[value]} />
       ),
@@ -124,14 +123,14 @@ export function LineItemTable({
       title: 'Created Time',
       dataIndex: 'createdAt',
       key: 'createdAt',
-      width: 175,
+      width: 160,
       render: (value: string) => <span className="text-text-muted whitespace-nowrap">{formatDateTime(value)}</span>,
     },
     {
       title: 'Updated Time',
       dataIndex: 'updatedAt',
       key: 'updatedAt',
-      width: 175,
+      width: 160,
       render: (value: string) => <span className="text-text-muted whitespace-nowrap">{formatDateTime(value)}</span>,
     },
     {
@@ -142,10 +141,9 @@ export function LineItemTable({
       render: (value: string) => <TruncatedText value={value} className="text-text-muted" />,
     },
     {
-      title: 'Action',
+      title: 'Actions',
       key: 'action',
-      width: 100,
-      fixed: 'right',
+      width: 120,
       render: (_, item) => (
         <LineItemActions onEdit={() => onEdit(item)} onViewHistory={() => onViewHistory(item)} />
       ),
@@ -163,7 +161,8 @@ export function LineItemTable({
       pageSize={pageSize}
       onPageChange={onPageChange}
       emptyMessage={messages.empty.noLineItems}
-      scrollX={2000}
+      scrollX={2390}
+      className="gltc-results-table"
     />
   );
 }

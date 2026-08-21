@@ -7,38 +7,41 @@
   Tailwind theme tokens (bg-primary, text-textMuted, etc.) instead.
 */
 @theme {
-  --color-primary: #4f46e5;
-  --color-primary-hover: #4338ca;
-  --color-primary-active: #3730a3;
+  --color-primary: #6366f1;
+  --color-primary-hover: #4f46e5;
+  --color-primary-active: #4338ca;
+  --color-primary-soft: #eef2ff;
 
-  --color-sidebar: #000000;
+  --color-sidebar: #0a0a0a;
   --color-sidebar-hover: #18181b;
-  --color-sidebar-text: #e4e4e7;
-  --color-sidebar-text-muted: #9ca3af;
+  --color-sidebar-text: #a1a1aa;
+  --color-sidebar-text-muted: #71717a;
 
-  --color-page-background: #f4f4f6;
+  --color-page-background: #f5f6f8;
   --color-surface: #ffffff;
   --color-surface-muted: #fafafa;
 
-  --color-border: #e2e2e5;
-  --color-border-strong: #d4d4d8;
+  --color-border: #e5e7eb;
+  --color-border-strong: #d1d5db;
 
-  --color-text: #1a1a1a;
+  --color-text: #111827;
   --color-text-muted: #6b7280;
   --color-text-subtle: #9ca3af;
 
-  --color-success-bg: #eaf7ee;
-  --color-success-text: #16833b;
-  --color-warning-bg: #fff7e6;
-  --color-warning-text: #ad6800;
-  --color-error-bg: #fff1f0;
-  --color-error-text: #cf1322;
-  --color-info-bg: #e6f0ff;
-  --color-info-text: #1d4ed8;
-  --color-neutral-bg: #f0f0f2;
+  --color-success-bg: #ecfdf5;
+  --color-success-text: #059669;
+  --color-warning-bg: #fffbeb;
+  --color-warning-text: #d97706;
+  --color-error-bg: #fef2f2;
+  --color-error-text: #dc2626;
+  --color-info-bg: #eff6ff;
+  --color-info-text: #2563eb;
+  --color-neutral-bg: #f4f4f5;
   --color-neutral-text: #52525b;
 
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --radius-card: 9px;
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.06);
 }
 
 html,
@@ -57,6 +60,51 @@ body,
   box-sizing: border-box;
 }
 
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.ant-btn {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-select-selector,
+.ant-picker {
+  font-size: 13px;
+}
+
+.ant-form-item-label > label,
+.ant-typography,
+.ant-modal,
+.ant-dropdown-menu,
+.ant-popover {
+  font-size: 13px;
+}
+
+.ant-modal-content,
+.ant-popover-inner {
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+}
+
+.ant-modal-header {
+  margin-bottom: 16px;
+}
+
+.ant-table-thead > tr > th {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ant-table-tbody > tr > td {
+  font-size: 13px;
+}
+
 /* AntD table / component overrides that must stay centralized rather than per-component */
 .gltc-scroll-thin::-webkit-scrollbar {
   width: 8px;
@@ -68,4 +116,28 @@ body,
 }
 .gltc-scroll-thin::-webkit-scrollbar-track {
   background: transparent;
+}
+
+.gltc-results-table .ant-table-thead > tr > th {
+  white-space: nowrap;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+.gltc-results-table .ant-table-tbody > tr > td {
+  white-space: nowrap;
+}
+
+.dashboard-page-header {
+  margin-bottom: 16px;
+}
+
+.dashboard-page-header h1 {
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.dashboard-page-header p {
+  font-size: 14px;
+  margin-top: 5px;
 }

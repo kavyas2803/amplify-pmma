@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, message as antdMessage } from 'antd';
-import { ArrowLeft, CheckCircle2, FileDown } from 'lucide-react';
+import { ArrowLeft, Download, ExternalLink, FileDown, FileSpreadsheet } from 'lucide-react';
 import { PageHeader } from '@/components/common/PageHeader';
 import { SearchBar } from '@/components/common/SearchBar';
 import { LoadingState } from '@/components/common/LoadingState';
@@ -10,6 +10,7 @@ import { LineItemFilters } from '@/components/lineItems/LineItemFilters';
 import { LineItemTable } from '@/components/lineItems/LineItemTable';
 import { EditLineItemModal } from '@/components/lineItems/EditLineItemModal';
 import { RowHistoryModal } from '@/components/lineItems/RowHistoryModal';
+import { SourceFilePreviewModal } from '@/components/lineItems/SourceFilePreviewModal';
 import { useLineItems } from '@/hooks/useLineItems';
 import {
   getRunStatus,
@@ -38,6 +39,7 @@ export function ClassificationResultsPage() {
 
   const [editingItem, setEditingItem] = useState<LineItem | null>(null);
   const [historyItem, setHistoryItem] = useState<LineItem | null>(null);
+  const [previewFile, setPreviewFile] = useState<string | null>(null);
   const [finalizing, setFinalizing] = useState(false);
 
   const { items, total, loading, error, refetch } = useLineItems({
@@ -126,52 +128,54 @@ export function ClassificationResultsPage() {
         }
       />
 
-      <div className="bg-surface border border-border rounded-xl p-4 mb-4">
-        <div className="text-xs font-medium text-text-muted uppercase tracking-wide mb-2">Source Files</div>
-        <div className="text-sm text-text">{run.glFileName}</div>
-        <div className="text-sm text-text-muted">{run.provisionFileName}</div>
-
-        <div className="flex items-center gap-6 mt-4 pt-4 border-t border-border">
-          <div>
-            <div className="text-lg font-semibold text-text">{run.totalLineItems}</div>
-            <div className="text-xs text-text-muted">Line Items</div>
-          </div>
-          <div>
-            <div className="text-lg font-semibold text-success-text">{run.reviewedLineItems}</div>
-            <div className="text-xs text-text-muted">Reviewed</div>
-          </div>
-          <div>
-            <div className="text-lg font-semibold text-warning-text">{Math.max(remaining, 0)}</div>
-            <div className="text-xs text-text-muted">In Review</div>
+      <section className="bg-surface border border-border rounded-lg p-4 mb-4 flex items-center gap-6 flex-wrap lg:flex-nowrap">
+        <div className="min-w-[220px] flex-1">
+          <div className="text-[11px] font-semibold text-text-muted uppercase tracking-[0.12em] mb-2">Source File</div>
+          <div className="flex flex-wrap gap-x-5 gap-y-1">
+            {[run.glFileName, run.provisionFileName].map((fileName) => (
+              <button
+                key={fileName}
+                type="button"
+                onClick={() => setPreviewFile(fileName)}
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary-hover hover:underline cursor-pointer bg-transparent border-none p-0"
+              >
+                <FileSpreadsheet size={15} aria-hidden="true" />
+                <span>{fileName}</span>
+                <ExternalLink size={13} aria-hidden="true" />
+              </button>
+            ))}
           </div>
         </div>
-      </div>
 
-      {run.totalLineItems > 0 && (
-        <div
-          className={`rounded-xl p-4 mb-4 flex items-center justify-between flex-wrap gap-3 border ${
-            reviewComplete ? 'bg-success-bg border-success-text/30' : 'bg-surface border-border'
-          }`}
-        >
-          <div className="flex items-center gap-2">
-            {reviewComplete && <CheckCircle2 size={18} className="text-success-text" />}
-            <span className={`text-sm font-medium ${reviewComplete ? 'text-success-text' : 'text-text'}`}>
-              {reviewComplete
-                ? `${messages.info.reviewComplete} ${run.totalLineItems} / ${run.totalLineItems} line items reviewed`
-                : messages.info.reviewIncomplete(remaining)}
-            </span>
+        <div className="flex items-center gap-8 border-l border-border pl-6">
+          <div>
+            <div className="text-xl leading-none font-semibold text-text tabular-nums">{run.totalLineItems}</div>
+            <div className="text-xs text-text-muted mt-1">Line Items</div>
           </div>
-          {run.status === 'FINALIZED' ? (
-            <Button icon={<FileDown size={15} />} onClick={handleDownloadKpmg}>
-              {labels.actions.downloadKpmg}
-            </Button>
-          ) : (
-            <Button type="primary" disabled={!reviewComplete} loading={finalizing} onClick={handleFinalize}>
-              {labels.actions.finalize}
-            </Button>
-          )}
+          <div>
+            <div className="text-xl leading-none font-semibold text-success-text tabular-nums">{run.reviewedLineItems}</div>
+            <div className="text-xs text-text-muted mt-1">Reviewed</div>
+          </div>
+          <div>
+            <div className="text-xl leading-none font-semibold text-warning-text tabular-nums">{Math.max(remaining, 0)}</div>
+            <div className="text-xs text-text-muted mt-1">In Review</div>
+          </div>
         </div>
-      )}
+
+        {run.totalLineItems > 0 && (
+          <div className="lg:ml-auto">
+            {run.status === 'FINALIZED' ? (
+              <Button icon={<Download size={15} />} onClick={handleDownloadKpmg}>
+                {labels.actions.downloadKpmg}
+              </Button>
+            ) : (
+              <Button type="primary" icon={<FileDown size={15} />} disabled={!reviewComplete} loading={finalizing} onClick={handleFinalize}>
+                {labels.actions.finalize}
+              </Button>
+            )}
+          </div>
+        )}
+      </section>
 
       <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
         <SearchBar
@@ -199,7 +203,7 @@ export function ClassificationResultsPage() {
       {error ? (
         <ErrorState message={error} onRetry={refetch} />
       ) : (
-        <div className="bg-surface border border-border rounded-xl p-2">
+        <div className="bg-surface border border-border rounded-lg overflow-hidden">
           <LineItemTable
             items={items}
             total={total}
@@ -221,6 +225,13 @@ export function ClassificationResultsPage() {
       />
 
       <RowHistoryModal open={historyItem !== null} item={historyItem} onClose={() => setHistoryItem(null)} />
+      <SourceFilePreviewModal
+        open={previewFile !== null}
+        fileName={previewFile}
+        runId={run.id}
+        items={items}
+        onClose={() => setPreviewFile(null)}
+      />
     </div>
   );
 }
